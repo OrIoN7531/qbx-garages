@@ -298,6 +298,9 @@ RegisterNetEvent('qb-garages:client:takeOutGarage', function(data)
     end
 
     local netId, properties = lib.callback.await('qb-garage:server:spawnvehicle', false, vehicle, type == "house" and garage.takeVehicle or garage.spawnPoint, true)
+    while not NetworkDoesEntityExistWithNetworkId do
+        Wait(0)
+    end
     local veh = NetToVeh(netId)
     lib.setVehicleProperties(veh, properties)
     SetVehicleFuelLevel(veh, vehicle.fuel)
